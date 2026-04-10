@@ -26,7 +26,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  /* 將背景與文字變色動畫拉長，配合布幕放下的時間，避免突兀閃爍 */
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 a {
@@ -107,14 +108,15 @@ button {
   transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 讓內容靠上，聯絡方式靠下 */
 }
 
 .sidebar.active {
   left: 0; /* 滑入 */
 }
 
+/* header 固定高度不被擠壓 */
 .sidebar-header {
+  flex-shrink: 0; 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -123,7 +125,9 @@ button {
   border-bottom: 1px solid var(--border-color);
 }
 
+/* 中間內容區自動延展並允許滾動 */
 .sidebar-content {
+  flex-grow: 1;
   padding: 1.5rem;
   overflow-y: auto;
 }
@@ -136,62 +140,9 @@ button {
   margin-bottom: 1rem;
 }
 
-/* 目錄分類 */
+/* === 分類選單 Hover 展開設定 === */
 .sidebar-category {
   margin-bottom: 0.5rem;
-}
-
-.sidebar-footer {
-  padding: 1.5rem;
-  border-top: 1px solid var(--border-color);
-  background-color: var(--hover-bg);
-}
-
-/* 讓 CONTACT 標題置中 */
-.sidebar-title.center-text {
-  text-align: center;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
-}
-
-/* 讓 Icon 水平置中排列 */
-.contact-links {
-  display: flex;
-  flex-direction: row;        /* 改為水平排列 */
-  justify-content: center;    /* 水平置中 */
-  align-items: center;        /* 垂直置中 */
-  gap: 24px;                  /* Logo 之間的距離 */
-}
-
-.contact-links a {
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.3s ease, transform 0.3s ease; /* 加入平滑動畫 */
-}
-
-/* 滑鼠浮動時的效果：變亮且微微上浮 */
-.contact-links a:hover {
-  color: var(--text-color);
-  transform: translateY(-3px); 
-}
-
-/* === 布幕動畫 (Curtain) === */
-.theme-curtain {
-  position: fixed;
-  top: -100vh; /* 預設藏在畫面上方 */
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999; /* 蓋住所有東西 */
-  transition: top 0.6s cubic-bezier(0.86, 0, 0.07, 1); /* 絲滑的下落曲線 */
-  pointer-events: none;
-}
-
-/* 觸發下落的 class */
-.theme-curtain.drop {
-  top: 0;
 }
 
 .cat-toggle {
@@ -200,6 +151,7 @@ button {
   align-items: center;
   padding: 8px 12px;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .cat-toggle:hover {
@@ -211,16 +163,8 @@ button {
   flex-grow: 1;
 }
 
-.toggle-icon-btn {
-  padding: 4px;
-}
-
 .chevron {
   transition: transform 0.3s ease;
-}
-
-.cat-toggle.open .chevron {
-  transform: rotate(180deg);
 }
 
 /* 目錄文章列表 (手風琴效果) */
@@ -230,7 +174,16 @@ button {
   margin: 0;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.4s ease;
+}
+
+/* 當滑鼠移到分類上時，展開列表並旋轉箭頭 */
+.sidebar-category:hover .cat-posts {
+  max-height: 1000px; /* 給一個足夠大的高度讓它展開 */
+}
+
+.sidebar-category:hover .chevron {
+  transform: rotate(180deg);
 }
 
 .cat-posts li {
@@ -250,6 +203,58 @@ button {
   color: var(--primary-color);
   background-color: var(--hover-bg);
   border-left-color: var(--primary-color);
+}
+
+/* Footer 固定在底部，解決手機版聯絡 Icon 消失的問題 */
+.sidebar-footer {
+  flex-shrink: 0; 
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--hover-bg);
+}
+
+.sidebar-title.center-text {
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.contact-links a {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-links a:hover {
+  color: var(--text-color);
+  transform: translateY(-3px); 
+}
+
+/* === 布幕動畫 (Curtain) 優化 === */
+.theme-curtain {
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background-color: var(--bg-color); /* 加上背景色才會有布幕實體的感覺 */
+  transition: top 0.6s cubic-bezier(0.645, 0.045, 0.355, 1); /* 絲滑的掉落與拉起曲線 */
+  pointer-events: none;
+}
+
+.theme-curtain.drop {
+  top: 0;
 }
 
 /* === 遮罩層 === */
@@ -289,7 +294,7 @@ footer {
 .post-banner {
   position: relative;
   width: 100%;
-  height: 40vh; /* 高度佔螢幕的 40% */
+  height: 40vh;
   min-height: 300px;
   background-size: cover;
   background-position: center;
@@ -297,10 +302,9 @@ footer {
   margin-bottom: 2.5rem;
   overflow: hidden;
   display: flex;
-  align-items: flex-end; /* 讓文字靠下對齊 */
+  align-items: flex-end;
 }
 
-/* 半透明黑色遮罩 */
 .banner-overlay {
   position: absolute;
   inset: 0;
@@ -308,7 +312,6 @@ footer {
   z-index: 1;
 }
 
-/* Banner 內的文字 */
 .banner-content {
   position: relative;
   z-index: 2;
@@ -317,7 +320,7 @@ footer {
 }
 
 .banner-content .post-title {
-  color: #ffffff; /* 強制白色字 */
+  color: #ffffff;
   font-size: 2.5rem;
   margin: 0 0 10px 0;
   text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
@@ -337,50 +340,28 @@ footer {
 
 /* === 豐富文章排版特效 === */
 
-/* 1. 圖片靠右，文字圍繞 (適合人像、小圖) */
-.img-right {
-    float: right;
-    margin-left: 15px;
-    margin-bottom: 10px;
-}
-
-/* === 影片容器響應式設定 === */
-
-/* 確保 iframe 不會衝出版面 */
+/* 1. 影片與圖片容器設定 */
 .video-container iframe {
-    width: 100% !important; /* 強制覆蓋 html 裡寫死的 450px */
-    height: auto;
-    aspect-ratio: 16 / 9;   /* 維持正常的 YouTube 橫向比例，若是直立影片請改成 9 / 16 */
-    border-radius: 8px;     /* 加上圓角比較好看 */
+  width: 100% !important; /* 強制覆蓋寫死的 450px */
+  height: auto;
+  aspect-ratio: 16 / 9;   /* 確保 YouTube 比例正常 */
+  border-radius: 8px;
 }
 
-/* 電腦版：文繞圖 (靠右) */
-.video-container.img-right {
-    float: right;
-    width: 450px;           /* 在電腦版限制最大寬度 */
-    margin-left: 20px;
-    margin-bottom: 15px;
+.img-right {
+  float: right;
+  width: 450px;           /* 電腦版限制影片/圖片寬度 */
+  margin-left: 20px;
+  margin-bottom: 15px;
 }
 
-/* 手機版適配：當螢幕太小時 (小於 768px)，取消文繞圖，改為上下排列滿版 */
-@media (max-width: 768px) {
-    .video-container.img-right {
-        float: none;        /* 取消靠右浮動 */
-        width: 100%;        /* 讓影片在手機上佔滿寬度 */
-        margin-left: 0;
-        margin-bottom: 20px;
-        display: block;
-    }
-}
-
-/* 2. 圖片靠左，文字圍繞 */
 .img-left {
   float: left;
   max-width: 40%;
   margin: 0.5rem 1.5rem 1rem 0 !important;
 }
 
-/* 3. 並排雙圖 (兩張圖片各佔一半) */
+/* 2. 並排雙圖 */
 .img-grid-2 {
   display: flex;
   gap: 15px;
@@ -392,7 +373,7 @@ footer {
   object-fit: cover;
 }
 
-/* 4. 重點提示框 (Note Box) */
+/* 3. 重點提示框 */
 .note-box {
   background-color: var(--hover-bg);
   border-left: 4px solid var(--primary-color);
@@ -402,7 +383,7 @@ footer {
   font-size: 0.95rem;
 }
 
-/* 5. 美化 Markdown 預設的引言 (>) */
+/* 4. 引言 */
 .post-content blockquote {
   font-style: italic;
   color: var(--text-muted);
@@ -413,9 +394,32 @@ footer {
   border-radius: 4px;
 }
 
-/* 清除浮動 (防止文繞圖版面跑位) */
 .clearfix::after {
   content: "";
   clear: both;
   display: table;
+}
+
+/* === 手機版響應式優化 (Mobile Optimization) === */
+@media (max-width: 768px) {
+  /* 解決手機影片破版：取消文繞圖，改為滿版上下排列 */
+  .video-container.img-right {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .img-left {
+    float: none;
+    max-width: 100%;
+    margin: 0 0 1rem 0 !important;
+    display: block;
+  }
+
+  /* 確保手機底部有安全距離，聯絡 Icon 不會被 iOS 首頁條擋住 */
+  .sidebar-footer {
+    padding-bottom: 2rem; 
+  }
 }
