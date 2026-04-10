@@ -1,0 +1,404 @@
+/* === CSS 變數設計 (支援日夜間模式) === */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --text-muted: #666666;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --border-color: #eaeaea;
+  --hover-bg: #f5f5f5;
+  --primary-color: #0070f3;
+  --sidebar-width: 300px;
+}
+
+[data-theme="dark"] {
+  --bg-color: #111111;
+  --text-color: #ededed;
+  --text-muted: #a0a0a0;
+  --nav-bg: rgba(17, 17, 17, 0.85);
+  --border-color: #333333;
+  --hover-bg: #222222;
+  --primary-color: #3291ff;
+}
+
+/* === 全局樣式 === */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* === Navbar 頂部導覽列 === */
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 60px;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px); /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1050;
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* 按鈕共用樣式 */
+button {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-btn {
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.icon-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.text-btn {
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.text-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+/* === Sidebar 側邊欄 === */
+.sidebar {
+  position: fixed;
+  top: 60px; /* 從導覽列下方開始 */
+  left: calc(var(--sidebar-width) * -1);
+  width: var(--sidebar-width);
+  height: calc(100vh - 60px); /* 扣掉導覽列高度 */
+  background-color: var(--bg-color);
+  border-right: 1px solid var(--border-color);
+  z-index: 1000;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 讓內容靠上，聯絡方式靠下 */
+}
+
+.sidebar.active {
+  left: 0; /* 滑入 */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.5rem;
+  height: 60px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.sidebar-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* 目錄分類 */
+.sidebar-category {
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--hover-bg);
+}
+
+/* 讓 CONTACT 標題置中 */
+.sidebar-title.center-text {
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+/* 讓 Icon 水平置中排列 */
+.contact-links {
+  display: flex;
+  flex-direction: row;        /* 改為水平排列 */
+  justify-content: center;    /* 水平置中 */
+  align-items: center;        /* 垂直置中 */
+  gap: 24px;                  /* Logo 之間的距離 */
+}
+
+.contact-links a {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.3s ease; /* 加入平滑動畫 */
+}
+
+/* 滑鼠浮動時的效果：變亮且微微上浮 */
+.contact-links a:hover {
+  color: var(--text-color);
+  transform: translateY(-3px); 
+}
+
+/* === 布幕動畫 (Curtain) === */
+.theme-curtain {
+  position: fixed;
+  top: -100vh; /* 預設藏在畫面上方 */
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999; /* 蓋住所有東西 */
+  transition: top 0.6s cubic-bezier(0.86, 0, 0.07, 1); /* 絲滑的下落曲線 */
+  pointer-events: none;
+}
+
+/* 觸發下落的 class */
+.theme-curtain.drop {
+  top: 0;
+}
+
+.cat-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.cat-toggle:hover {
+  background-color: var(--hover-bg);
+}
+
+.cat-link {
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.toggle-icon-btn {
+  padding: 4px;
+}
+
+.chevron {
+  transition: transform 0.3s ease;
+}
+
+.cat-toggle.open .chevron {
+  transform: rotate(180deg);
+}
+
+/* 目錄文章列表 (手風琴效果) */
+.cat-posts {
+  list-style: none;
+  padding: 0 0 0 1rem;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.cat-posts li {
+  margin: 4px 0;
+}
+
+.cat-posts a {
+  display: block;
+  padding: 6px 12px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border-left: 2px solid transparent;
+}
+
+.cat-posts a:hover {
+  color: var(--primary-color);
+  background-color: var(--hover-bg);
+  border-left-color: var(--primary-color);
+}
+
+/* === 遮罩層 === */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* === 其他佈局 === */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 60px - 60px);
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border-color);
+}
+
+/* === 文章頂部 Banner === */
+.post-banner {
+  position: relative;
+  width: 100%;
+  height: 40vh; /* 高度佔螢幕的 40% */
+  min-height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end; /* 讓文字靠下對齊 */
+}
+
+/* 半透明黑色遮罩 */
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+  z-index: 1;
+}
+
+/* Banner 內的文字 */
+.banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 2.5rem;
+  width: 100%;
+}
+
+.banner-content .post-title {
+  color: #ffffff; /* 強制白色字 */
+  font-size: 2.5rem;
+  margin: 0 0 10px 0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.banner-content .post-meta {
+  color: #dddddd;
+  border: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: none;
+}
+
+.banner-content .post-meta a {
+  color: #66b3ff;
+}
+
+/* === 豐富文章排版特效 === */
+
+/* 1. 圖片靠右，文字圍繞 (適合人像、小圖) */
+.img-right {
+    float: right;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px; /* 圓角看起來比較美 */
+    display: block;    /* 關鍵：讓它成為區塊元素 */
+    height: auto;      /* 關鍵：高度自動，避免壓縮 */
+}
+
+/* 手機版適配：當螢幕太小時，讓影片回到中間並滿版 */
+@media (max-width: 768px) {
+    .img-right {
+        float: none;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* 2. 圖片靠左，文字圍繞 */
+.img-left {
+  float: left;
+  max-width: 40%;
+  margin: 0.5rem 1.5rem 1rem 0 !important;
+}
+
+/* 3. 並排雙圖 (兩張圖片各佔一半) */
+.img-grid-2 {
+  display: flex;
+  gap: 15px;
+  margin: 1.5rem 0;
+}
+.img-grid-2 img {
+  width: calc(50% - 7.5px) !important;
+  margin: 0 !important;
+  object-fit: cover;
+}
+
+/* 4. 重點提示框 (Note Box) */
+.note-box {
+  background-color: var(--hover-bg);
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+}
+
+/* 5. 美化 Markdown 預設的引言 (>) */
+.post-content blockquote {
+  font-style: italic;
+  color: var(--text-muted);
+  border-left: 4px solid #a0a0a0;
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  background: rgba(160, 160, 160, 0.1);
+  border-radius: 4px;
+}
+
+/* 清除浮動 (防止文繞圖版面跑位) */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
