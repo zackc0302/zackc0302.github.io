@@ -98,10 +98,12 @@ button {
 /* === Sidebar 側邊欄 === */
 .sidebar {
   position: fixed;
-  top: 60px; /* 從導覽列下方開始 */
+  top: 60px; 
   left: calc(var(--sidebar-width) * -1);
   width: var(--sidebar-width);
-  height: calc(100vh - 60px); /* 扣掉導覽列高度 */
+  /* === 加入 dvh 動態高度，解決手機底部被吃掉的問題 === */
+  height: calc(100vh - 60px);  /* 舊版瀏覽器備用 */
+  height: calc(100dvh - 60px); /* 現代手機瀏覽器標準 */
   background-color: var(--bg-color);
   border-right: 1px solid var(--border-color);
   z-index: 1000;
@@ -402,12 +404,11 @@ footer {
 
 /* === 手機版響應式優化 (Mobile Optimization) === */
 @media (max-width: 768px) {
-  /* 解決手機影片破版：取消文繞圖，改為滿版上下排列 */
+  /* 解決手機影片破版 (保留不動) */
   .video-container.img-right {
-    float: none !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: 0 !important;
+    float: none;
+    width: 100%;
+    margin-left: 0;
     margin-bottom: 20px;
     display: block;
   }
@@ -419,19 +420,9 @@ footer {
     display: block;
   }
 
-  /* 修復手機版 Contact 按鈕排列 */
-  .contact-links {
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .contact-links a {
-    flex: 0 1 auto;
-  }
-
-  /* 確保手機底部有安全距離，聯絡 Icon 不會被 iOS 首頁條擋住 */
+  /* === 關鍵修改：恢復原本的內距，不要往下硬推 === */
   .sidebar-footer {
-    padding-bottom: 2rem; 
+    padding-bottom: 1.5rem; 
   }
 }
 
