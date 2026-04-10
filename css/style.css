@@ -341,18 +341,21 @@ footer {
 .img-right {
     float: right;
     margin-left: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px; /* 圓角看起來比較美 */
-    display: block;    /* 關鍵：讓它成為區塊元素 */
-    height: auto;      /* 關鍵：高度自動，避免壓縮 */
+    margin-bottom: 10px;
 }
 
 /* 手機版適配：當螢幕太小時，讓影片回到中間並滿版 */
-@media (max-width: 768px) {
-    .img-right {
-        float: none;
-        width: 100%;
-        margin-left: 0;
+/* 針對手機版的優化 */
+@media (max-width: 480px) {
+    .video-container.img-right {
+        float: right;     /* 如果你希望手機版也靠右，就保留這個 */
+        width: 40%;       /* 調小影片寬度，留空間給文字 */
+        margin-left: 10px;
+    }
+    
+    .video-container iframe {
+        height: auto;
+        aspect-ratio: 9 / 16; /* 強制保持直向比例 */
     }
 }
 
