@@ -344,18 +344,32 @@ footer {
     margin-bottom: 10px;
 }
 
-/* 手機版適配：當螢幕太小時，讓影片回到中間並滿版 */
-/* 針對手機版的優化 */
-@media (max-width: 480px) {
+/* === 影片容器響應式設定 === */
+
+/* 確保 iframe 不會衝出版面 */
+.video-container iframe {
+    width: 100% !important; /* 強制覆蓋 html 裡寫死的 450px */
+    height: auto;
+    aspect-ratio: 16 / 9;   /* 維持正常的 YouTube 橫向比例，若是直立影片請改成 9 / 16 */
+    border-radius: 8px;     /* 加上圓角比較好看 */
+}
+
+/* 電腦版：文繞圖 (靠右) */
+.video-container.img-right {
+    float: right;
+    width: 450px;           /* 在電腦版限制最大寬度 */
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+/* 手機版適配：當螢幕太小時 (小於 768px)，取消文繞圖，改為上下排列滿版 */
+@media (max-width: 768px) {
     .video-container.img-right {
-        float: right;     /* 如果你希望手機版也靠右，就保留這個 */
-        width: 40%;       /* 調小影片寬度，留空間給文字 */
-        margin-left: 10px;
-    }
-    
-    .video-container iframe {
-        height: auto;
-        aspect-ratio: 9 / 16; /* 強制保持直向比例 */
+        float: none;        /* 取消靠右浮動 */
+        width: 100%;        /* 讓影片在手機上佔滿寬度 */
+        margin-left: 0;
+        margin-bottom: 20px;
+        display: block;
     }
 }
 
