@@ -108,15 +108,35 @@
     <div style="text-align: center; padding: 2rem 1rem;">
   <h1>歡迎來到 W Log</h1>
   
-  <div style="max-width: 600px; margin: 2rem auto; line-height: 1.8; font-size: 1.05rem;">
-    <p>Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。</p>
+  <!-- 為了讓打字效果自然，建議這區塊文字靠左對齊 (text-align: left)，否則置中打字畫面會一直左右跳動 -->
+  <div style="max-width: 600px; margin: 2rem auto; line-height: 1.8; font-size: 1.05rem; text-align: left;">
     
-    <p><strong>W Log</strong> 的目的是希望透過記錄自己在 NUS 的生活點滴，同時也幫助未來想經歷相同事情的同學</p>
+    <!-- 這個 span 是打字機的「螢幕」，Typed.js 會把文字輸出在這裡 -->
+    <span id="typed-output"></span>
     
-    <p>這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我 😊</p>
-
   </div>
 </div>
+
+<!-- Typed.js 核心檔案 -->
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<!-- 設定打字機動畫 -->
+<script>
+  // 確保網頁載入完成後才執行打字動畫
+  document.addEventListener('DOMContentLoaded', function() {
+    var typed = new Typed('#typed-output', {
+      // 這裡放你要打出的文字。支援 HTML 標籤（用 <br><br> 來換行模擬 p 標籤的效果）
+      strings: [
+        "Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。<br><br><strong>W Log</strong> 的目的是希望透過記錄自己在新加坡的生活點滴，同時也幫助未來想經歷相同事情的同學。<br><br>這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我。<br><br>Still writing..."
+      ],
+      typeSpeed: 50,      // 打字速度 (數字越大越慢，單位是毫秒)
+      startDelay: 500,    // 網頁載入後，延遲多久開始打字 (500 = 0.5秒)
+      showCursor: true,   // 是否顯示閃爍的游標
+      cursorChar: '|',    // 游標的符號 (也可以換成 '_' 或 '█')
+      contentType: 'html' // 告訴程式這是一段包含 HTML 的文字
+    });
+  });
+</script>
   </main>
 
   <footer>
