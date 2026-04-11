@@ -210,6 +210,15 @@ button {
   margin-bottom: 0.5rem;
 }
 
+/* 當分類被打開時的樣式 */
+.sidebar-category.open .chevron {
+  transform: rotate(180deg);
+}
+
+.sidebar-category.open .cat-posts {
+  max-height: 1000px; /* 給一個足夠大的高度讓它展開 */
+}
+
 .cat-toggle {
   display: flex;
   justify-content: space-between;
@@ -248,14 +257,7 @@ button {
   transition: max-height 0.4s ease;
 }
 
-/* 當滑鼠移到分類上時，展開列表並旋轉箭頭 */
-.sidebar-category:hover .cat-posts {
-  max-height: 1000px; /* 給一個足夠大的高度讓它展開 */
-}
-
-.sidebar-category:hover .chevron {
-  transform: rotate(180deg);
-}
+/* 目錄文章列表不需要 hover 展開，改由 JavaScript 控制 */
 
 .cat-posts li {
   margin: 4px 0;
@@ -284,15 +286,16 @@ button {
 /* Footer 固定在底部，解決手機版聯絡 Icon 消失的問題 */
 .sidebar-footer {
   flex-shrink: 0; 
-  padding: 0.8rem 1.5rem 1.5rem; 
+  padding: 1rem 1.25rem; 
   border-top: 1px solid var(--border-color);
   background-color: var(--hover-bg);
 }
 
 .sidebar-title.center-text {
   text-align: center;
-  margin-bottom: 1rem;
-  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+  font-size: 0.75rem;
 }
 
 .contact-links {
@@ -300,8 +303,9 @@ button {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .contact-links a {
@@ -311,15 +315,15 @@ button {
   justify-content: center;
   transition: all 0.2s ease;
   padding: 8px;
-  border-radius: 6px;
-  min-width: 44px;
-  min-height: 44px;
+  border-radius: 5px;
+  width: 36px;
+  height: 36px;
 }
 
 .contact-links a:hover {
   color: var(--primary-color);
-  background-color: var(--hover-bg);
-  transform: translateY(-3px); 
+  background-color: var(--primary-light);
+  transform: scale(1.15);
 }
 
 /* === 布幕動畫 (Curtain) 優化 === */
@@ -701,8 +705,9 @@ footer {
     margin: 1rem 0;
   }
 
-  /* === Contact 按鈕優化 === */
+  /* === Contact 按鈕優化 - 手機版保持水平 === */
   .contact-links {
+    flex-direction: row;
     gap: 12px;
   }
 
@@ -777,9 +782,9 @@ footer {
     font-size: 0.8rem;
   }
 
-  /* === Contact 直排排列 === */
+  /* === Contact 超小屏幕保持水平 === */
   .contact-links {
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
   }
 

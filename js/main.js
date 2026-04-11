@@ -94,19 +94,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   const catToggles = document.querySelectorAll('.cat-toggle');
   catToggles.forEach(toggle => {
-    const iconBtn = toggle.querySelector('.toggle-icon-btn');
     const postList = toggle.nextElementSibling;
 
-    if (iconBtn && postList) {
-      iconBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggle.classList.toggle('open'); 
-        if (toggle.classList.contains('open')) {
-          postList.style.maxHeight = postList.scrollHeight + 'px';
-        } else {
-          postList.style.maxHeight = null;
-        }
-      });
-    }
+    // 點擊整個分類區域都可以展開/收起
+    toggle.addEventListener('click', (e) => {
+      // 避免重複觸發（按鈕本身不需要 preventDefault）
+      toggle.parentElement.classList.toggle('open');
+      if (toggle.parentElement.classList.contains('open')) {
+        postList.style.maxHeight = postList.scrollHeight + 'px';
+      } else {
+        postList.style.maxHeight = null;
+      }
+    });
   });
 });
