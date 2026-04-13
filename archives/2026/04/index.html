@@ -105,35 +105,274 @@
 
   <!-- 主要內容區 -->
   <main class="container">
-    <div style="text-align: center; padding: 2rem 1rem;">
-  <h1>歡迎來到 W Log</h1>
+    <!-- 首頁專屬排版樣式 -->
+<style>
+  /* 強制取消首頁外層容器的寬度限制，讓畫面可以滿版左右分割 */
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  /* 左右分割的主要容器 */
+  .home-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: calc(100vh - 60px); /* 扣掉頂部導覽列的高度 */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 左邊：文字區域 */
+  .home-text-area {
+    width: 50%;
+    padding-left: 8%; /* 讓文字不要貼著螢幕左邊 */
+    padding-right: 2%;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+  }
+
+  .home-text-area h1 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-size: 3.2rem;
+    line-height: 1.4;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--text-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+  }
+
+  /* 右邊：地球區域 */
+  .home-earth-area {
+    width: 50%;
+    height: calc(100vh - 60px);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: grab;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .home-earth-area:active {
+    cursor: grabbing;
+  }
+
+  /* 地球 Canvas 的過渡效果 */
+  .home-earth-area canvas {
+    transition: opacity 0.6s ease;
+  }
+
+  /* 毛玻璃卡片樣式 */
+  .glass-card {
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    line-height: 1.8;
+    font-size: 1.05rem;
+    text-align: left;
+    max-width: 550px;
+    min-height: 200px; /* 固定最小高度，防止打字機動畫改變版面 */
+    display: flex;
+    align-items: flex-start;
+    color: var(--text-color);
+    transition: all 0.6s ease, background 1.2s ease;
+  }
+
+  /* 打字機容器 */
+  #typed-output {
+    display: block;
+    word-break: break-word;
+  }
+
+  /* 隱藏首頁 Footer */
+  .home-layout ~ footer {
+    display: none;
+  }
+
+  /* === 手機版響應式設計 === */
+  @media (max-width: 768px) {
+    .home-layout {
+      flex-direction: column;
+      justify-content: center;
+    }
+    .home-text-area {
+      width: 100%;
+      padding: 2rem 1.5rem;
+      min-height: auto;
+    }
+    .home-text-area h1 {
+      font-size: 1rem;
+    }
+    .home-earth-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0.5; /* 手機螢幕太小，把地球變回半透明背景才不會擠成一團 */
+      z-index: 0;
+    }
+    .glass-card {
+      max-width: 100%;
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<!-- 畫面結構 -->
+<div class="home-layout">
   
-  <!-- 為了讓打字效果自然，建議這區塊文字靠左對齊 (text-align: left)，否則置中打字畫面會一直左右跳動 -->
-  <div style="max-width: 600px; margin: 2rem auto; line-height: 1.8; font-size: 1.05rem; text-align: left;">
-    
-    <!-- 這個 span 是打字機的「螢幕」，Typed.js 會把文字輸出在這裡 -->
-    <span id="typed-output"></span>
-    
+  <!-- 左半部：文字與打字機 -->
+  <div class="home-text-area">
+    <h1>歡迎來到 W Log</h1>
+    <div class="glass-card">
+      <span id="typed-output"></span>
+    </div>
   </div>
+
+  <!-- 右半部：3D 地球 -->
+  <div class="home-earth-area" id="earth-night-bg"></div>
+
 </div>
 
-<!-- Typed.js 核心檔案 -->
+<!-- 引入 Typed.js (打字機) -->
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<!-- 引入 Globe.gl (3D 地球引擎) -->
+<script src="https://unpkg.com/globe.gl"></script>
 
-<!-- 設定打字機動畫 -->
 <script>
-  // 確保網頁載入完成後才執行打字動畫
   document.addEventListener('DOMContentLoaded', function() {
+    
+    /* =========================================
+       A. 打字機動畫設定
+    ========================================= */
     var typed = new Typed('#typed-output', {
-      // 這裡放你要打出的文字。支援 HTML 標籤（用 <br><br> 來換行模擬 p 標籤的效果）
       strings: [
-        "Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。<br><br><strong>W Log</strong> 的目的是希望透過記錄自己在新加坡的生活點滴，同時也幫助未來想經歷相同事情的同學。<br><br>這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我。<br><br>Still writing..."
+        "Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。\n\n<strong>W Log</strong> 的目的是希望透過記錄自己在新加坡的生活點滴，同時也幫助未來想經歷相同事情的同學。\n\n這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我。\n\nWriting..."
       ],
-      typeSpeed: 50,      // 打字速度 (數字越大越慢，單位是毫秒)
-      startDelay: 500,    // 網頁載入後，延遲多久開始打字 (500 = 0.5秒)
-      showCursor: true,   // 是否顯示閃爍的游標
-      cursorChar: '|',    // 游標的符號 (也可以換成 '_' 或 '█')
-      contentType: 'html' // 告訴程式這是一段包含 HTML 的文字
+      typeSpeed: 40,      
+      startDelay: 500,    
+      showCursor: true,   
+      cursorChar: '|',    
+      contentType: 'html',
+      cursorChar: '|',
+      onComplete: function(self) {
+        // 動畫完成時保留游標
+      }
+    });
+
+    /* =========================================
+       B. 3D 夜間地球與城市閃爍設定
+    ========================================= */
+    
+    const cities = [
+      { name: 'Singapore', lat: 1.3521, lng: 103.8198 },
+      { name: 'Taipei', lat: 25.0330, lng: 121.5654 },
+      { name: 'Melbourne', lat: -37.8136, lng: 144.9631 },
+      { name: 'Sydney', lat: -33.8688, lng: 151.2093 },
+      { name: 'Tokyo', lat: 35.6762, lng: 139.6503 },
+      { name: 'London', lat: 51.5074, lng: -0.1278 },
+      { name: 'New York', lat: 40.7128, lng: -74.0060 }
+    ];
+
+    // 隨機產生光點
+    for(let i = 0; i < 30; i++) {
+      cities.push({
+        lat: (Math.random() - 0.5) * 140, 
+        lng: (Math.random() - 0.5) * 360
+      });
+    }
+
+    cities.forEach(c => {
+      c.maxR = Math.random() * 2 + 1;           
+      c.propagationSpeed = Math.random() + 0.5; 
+      c.repeatPeriod = Math.random() * 2000 + 1000; 
+    });
+
+    const earthContainer = document.getElementById('earth-night-bg');
+    let globeInstance = null;
+
+    // 根據主題返回對應的地球圖像 URL
+    function getEarthImageUrl() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      // 如果有本地圖像，使用本地；否則使用高品質外部圖像
+      if (currentTheme === 'dark') {
+        return 'https://unpkg.com/three-globe/example/img/earth-night.jpg';
+      } else {
+        return 'https://unpkg.com/three-globe/example/img/earth-day.jpg';
+      }
+    }
+
+    // 初始化地球
+    function initGlobe() {
+      globeInstance = Globe()
+        (earthContainer)
+        .globeImageUrl(getEarthImageUrl())
+        .backgroundColor('rgba(0,0,0,0)') 
+        .width(earthContainer.clientWidth)
+        .height(earthContainer.clientHeight)
+        .ringsData(cities)
+        .ringColor(() => t => `rgba(255, 220, 100, ${Math.max(0, 1 - t)})`)
+        .ringMaxRadius('maxR')
+        .ringPropagationSpeed('propagationSpeed')
+        .ringRepeatPeriod('repeatPeriod');
+
+      globeInstance.controls().autoRotate = true;       
+      globeInstance.controls().autoRotateSpeed = 0.6;   
+      globeInstance.controls().enableZoom = false;      
+
+      // 視角對準東南亞與澳洲
+      globeInstance.pointOfView({ lat: 5, lng: 115, altitude: 2.0 });
+    }
+
+    // 初始化地球
+    initGlobe();
+
+    // 監聽主題變化，並更新地球圖像
+    function onThemeChange() {
+      if (!globeInstance) return;
+      
+      const newImageUrl = getEarthImageUrl();
+      // 使用淡出淡入效果來更新地球圖像
+      globeInstance.globeImageUrl(newImageUrl);
+    }
+
+    // 使用 MutationObserver 監聽 data-theme 屬性變化
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          onThemeChange();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    });
+
+    // 當視窗大小改變時，重新計算地球尺寸
+    window.addEventListener('resize', () => {
+      if (globeInstance) {
+        globeInstance.width(earthContainer.clientWidth);
+        globeInstance.height(earthContainer.clientHeight);
+      }
+    });
+
+    // 清理觀察器
+    window.addEventListener('beforeunload', () => {
+      observer.disconnect();
     });
   });
 </script>
