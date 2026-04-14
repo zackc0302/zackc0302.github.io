@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W Log</title>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+  <!-- 新增：深淺色切換的「布幕」 -->
+  <div id="theme-curtain" class="theme-curtain"></div>
+
+  <!-- 頂部導覽列 (層級拉到最高) -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <!-- 三條線按鈕保留在這裡，點擊可開關側邊欄 -->
+      <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="/" class="logo">W Log</a>
+    </div>
+    
+    <div class="navbar-right">
+      <button id="lang-toggle" class="text-btn">中 / EN</button>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg id="theme-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 遮罩層 -->
+  <div id="sidebar-overlay" class="overlay"></div>
+
+  <!-- 側邊欄 (移除了叉叉，並新增聯絡方式) -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+      <h4 class="sidebar-title">目錄導覽</h4>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
+          <span class="cat-link">NUS Exchange</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2024/01/12/exchange/">國大交換心得(食住行)</a></li>
+          
+        </ul>
+      </div>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
+          <span class="cat-link">Traveling</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
+          
+            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
+          
+            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
+          
+            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
+          
+            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
+          
+            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
+          
+            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
+          
+            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
+          
+            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
+          
+        </ul>
+      </div>
+      
+    </div>
+    
+    <!-- 新增：聯絡方式區塊 -->
+    <div class="sidebar-footer">
+      <h4 class="sidebar-title center-text">CONTACT</h4>
+      <div class="contact-links">
+        <!-- Email Logo -->
+        <a href="mailto:zackc0302@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+        <!-- GitHub Logo -->
+        <a href="https://github.com/fjdid" target="_blank" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主要內容區 -->
+  <main class="container">
+    <article class="post-container">
+  <div class="post-banner" style="background-image: url('/images/');">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <h1 class="post-title">曼谷</h1>
+      <div class="post-meta">
+        <span>📅 2026-03-21</span>
+        
+          <span>📂 
+            
+              <a href="/categories/Traveling/">Traveling</a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="post-content">
+    <h2 id="0-準備"><a href="#0-準備" class="headerlink" title="0. 準備"></a>0. 準備</h2><p>載好whatsapp、grab，辦完簽證，直接出發。</p>
+<h2 id="1-交通"><a href="#1-交通" class="headerlink" title="1. 交通 -"></a>1. 交通 -</h2><p>泰獅航的椅子歷經滄桑，機上偏熱，會流一點汗那種。</p>
+<table>
+<thead>
+<tr>
+<th align="left">交通方式</th>
+<th align="center">起點</th>
+<th align="center">終點</th>
+<th align="right">價格 (NTD)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">機票來回(泰國獅航)</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="right">5,319</td>
+</tr>
+<tr>
+<td align="left">GRAB</td>
+<td align="center">-</td>
+<td align="center">-</td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+<h2 id="2-行程與票券-NTD"><a href="#2-行程與票券-NTD" class="headerlink" title="2. 行程與票券 - NTD"></a>2. 行程與票券 - NTD</h2><p>大景點總會有當地熱情民眾引導你去他覺得好的觀光景點，就像童話一般，我們遇到了童話中的烏蘇阿姨，</p>
+<table>
+<thead>
+<tr>
+<th align="center">日期</th>
+<th align="left">活動項目</th>
+<th align="right">花費 (NTD)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">03&#x2F;22</td>
+<td align="left"><a href="">烏蘇阿姨神奇行程</a></td>
+<td align="right">1,200</td>
+</tr>
+</tbody></table>
+<h2 id="3-住宿-NTD-4-550"><a href="#3-住宿-NTD-4-550" class="headerlink" title="3. 住宿 - NTD 4,550"></a>3. 住宿 - NTD 4,550</h2><table>
+<thead>
+<tr>
+<th align="center">入住期間</th>
+<th align="left">住宿地點</th>
+<th align="right">花費 (NTD)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">03&#x2F;21 ~ 03&#x2F;25</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/Qeponuzj9XUsMvVm6">曼谷水門文斯飯店 菁英大廈</a></td>
+<td align="right">4,550</td>
+</tr>
+</tbody></table>
+<p>這飯店真得厲害了，有簡單的接送(5個點)，基本上就是把你從飯店載到靠近馬路的地方，但那些地方都是設計過的，像是按摩區、進捷運站、便利商店之類的，叫到連接送小哥都認識了，叫車都是用whatsapp，記得入住先加。</p>
+<p>附早餐、宵夜，但大概吃個三次就會膩了。一樓有附飲料、水、爆米花，也有冰塊讓你用，這些都24hr，房間整體乾淨，沒啥毛病能挑。</p>
+<p><strong>結論: ㄉㄧㄥˇ</strong></p>
+<h2 id="4-飲食-約-NTD-忘記"><a href="#4-飲食-約-NTD-忘記" class="headerlink" title="4. 飲食 - 約 NTD 忘記"></a>4. 飲食 - 約 NTD 忘記</h2><h3 id="The-Local"><a href="#The-Local" class="headerlink" title="The Local"></a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/VJMqZ7yuWZEmMPnz5">The Local</a></h3><p>頂嘎嘎，必須放在第一位介紹。<br>這間的Apppetizer是我此生吃過最具特色且最經濟的，兩個人點一般，共五種，每種兩個</p>
+<h3 id="紅大哥水門雞飯-總店"><a href="#紅大哥水門雞飯-總店" class="headerlink" title="紅大哥水門雞飯(總店)"></a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/Q6hiSTgFqd73v8cK9">紅大哥水門雞飯(總店)</a></h3><p>這間雞飯我覺得就是一般好吃的雞飯，在新加坡吃天天覺得太頂，很難突破了，路過餓了的話可以點份來吃吃看。</p>
+<p>不過說來奇怪，這間的泰奶是我在曼谷覺得最好喝的，喝手標都沒喝這間的經驗，但也可能是我那時泰渴，ㄏㄏ。</p>
+<h3 id="冬陰功大龍蝦麵"><a href="#冬陰功大龍蝦麵" class="headerlink" title="冬陰功大龍蝦麵"></a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/tuddSn3kfS2Xp24t9">冬陰功大龍蝦麵</a></h3><p>好吃，湯頭重口味，但不會辣到滿頭汗，蝦子真的大隻，吃得很過癮。<br>缺點是位置真的是有點遠，基本上那條路上的外國人都是衝著這間去吃。</p>
+<h3 id="Factory-Coffee-BKK"><a href="#Factory-Coffee-BKK" class="headerlink" title="Factory Coffee - BKK"></a><a target="_blank" rel="noopener" href="https://maps.app.goo.gl/TeekoApSYrZFfAm58">Factory Coffee - BKK</a></h3><h2 id="5-伴手禮-NTD-滿滿心意"><a href="#5-伴手禮-NTD-滿滿心意" class="headerlink" title="5. 伴手禮 - NTD 滿滿心意"></a>5. 伴手禮 - NTD 滿滿心意</h2><p>BIG C 亂掃，完全不記得買了多少。<br>不外乎，羊奶片、泰奶茶包、小老闆、魷魚乾等等</p>
+<div class="clearfix"></div>
+
+<h1 id="行程"><a href="#行程" class="headerlink" title="行程"></a>行程</h1><h3 id="1-恰圖恰市集-Chatuchak-Weekend-Market"><a href="#1-恰圖恰市集-Chatuchak-Weekend-Market" class="headerlink" title="1. 恰圖恰市集 Chatuchak Weekend Market"></a>1. <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/eL91EbWWrjrKzVdv8">恰圖恰市集 Chatuchak Weekend Market</a></h3><p>好逛，超級大，吃的逛的玩的應有盡有，但他看起來是有分區的，所以如果你後來才想吃東西，就要走回頭路了。</p>
+<p>基本上裡面很多第三方衣服，但也不少搞笑惡搞的衣服，蠻有意思的。</p>
+<p>是在那邊點果汁才知道，如果你是只想喝最自然的那種果汁，要跟他說不要加糖，因為我後來看到他加一堆高果糖漿才知道，原來那不是我想像的果汁。</p>
+<h3 id="2-Leteva-Thai-Massage"><a href="#2-Leteva-Thai-Massage" class="headerlink" title="2. Leteva Thai Massage"></a>2. <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/5w2gJSL1SNQNb55B9">Leteva Thai Massage</a></h3><h3 id="3-曼谷大皇宮"><a href="#3-曼谷大皇宮" class="headerlink" title="3. 曼谷大皇宮"></a>3. <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/Lmx2HfJnPeokafFV9">曼谷大皇宮</a></h3><h3 id="4-鄭王廟"><a href="#4-鄭王廟" class="headerlink" title="4. 鄭王廟"></a>4. <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/avBwevPMqBA9Dwkt5">鄭王廟</a></h3><p>大家看來是都會去那邊拍照，建築看起來蠻厲害的，只是太上面是不開放的，階梯是有障礙式階梯，gap偏大，年長者不friendly，但下面其實就很夠拍了。</p>
+<p>那邊也有提供拍照服務(含泰服)，想拍水噹噹照片建議直接請那個比較快，要不然還沒拍完前會熱死，真的非常熱，天氣真的太好了。</p>
+<h3 id="5-烏蘇阿姨行程"><a href="#5-烏蘇阿姨行程" class="headerlink" title="5. 烏蘇阿姨行程"></a>5. 烏蘇阿姨行程</h3><p>到了最fantasy的童話行程</p>
+
+  </div>
+</article>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Wesber - All rights reserved.</p>
+  </footer>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
