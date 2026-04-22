@@ -41,6 +41,36 @@
       
       <div class="sidebar-category">
         <div class="cat-toggle">
+          <span class="cat-link">Traveling</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
+          
+            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
+          
+            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
+          
+            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
+          
+            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
+          
+            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
+          
+            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
+          
+            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
+          
+            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
+          
+        </ul>
+      </div>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
           <span class="cat-link">NUS Exchange</span>
           <button class="toggle-icon-btn" aria-label="Toggle category">
             <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -49,36 +79,6 @@
         <ul class="cat-posts">
           
             <li><a href="/2024/01/12/exchange/">國大交換心得(食住行)</a></li>
-          
-        </ul>
-      </div>
-      
-      <div class="sidebar-category">
-        <div class="cat-toggle">
-          <span class="cat-link">Traveling</span>
-          <button class="toggle-icon-btn" aria-label="Toggle category">
-            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-        </div>
-        <ul class="cat-posts">
-          
-            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
-          
-            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
-          
-            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
-          
-            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
-          
-            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
-          
-            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
-          
-            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
-          
-            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
-          
-            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
           
         </ul>
       </div>
@@ -132,6 +132,7 @@
     max-width: 700px;
     padding-left: 2rem;
     padding-right: 2rem;
+    box-sizing: border-box; 
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -162,19 +163,42 @@
     border-radius: 20px;
     border: 1px solid var(--border-color);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    padding: 1rem;
+    padding: 2rem; /* 從 1rem 改為 2rem */
     line-height: 1.8;
     font-size: 1.05rem;
     text-align: left;
     width: 100%;
+    box-sizing: border-box; 
     color: var(--text-color);
     transition: all 0.6s ease, background 1.2s ease;
   }
 
   /* 打字機容器 */
   #typed-output {
-    display: block;
+    display: inline; /* 必須是 inline，游標才能緊跟在文字最後面 */
     word-break: break-word;
+  }
+
+  /* 游標樣式與閃爍動畫 */
+  .typed-cursor {
+    opacity: 1;
+    font-weight: 300;
+    font-size: 1.1em;
+    color: var(--primary-color); /* 讓游標吃你的主題藍色，比較好看 */
+    animation: typedBlink 0.8s infinite;
+    -webkit-animation: typedBlink 0.8s infinite;
+  }
+
+  /* 閃爍動畫 Keyframes */
+  @keyframes typedBlink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-webkit-keyframes typedBlink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
   }
 
   /* 隱藏首頁 Footer */
@@ -236,15 +260,18 @@
        A. 打字機動畫設定
     ========================================= */
     var typed = new Typed('#typed-output', {
+      // 將 \n\n 改為 <br><br>，HTML 才會正常渲染出段落與換行
       strings: [
-        "Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。\n\n<strong>W Log</strong> 的目的是希望透過記錄自己在新加坡的生活點滴，同時也幫助未來想經歷相同事情的同學。\n\n這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我。"
+        "Hi 我於 2026/01~2026/05 在新加坡國立大學 (NUS) 交換一學期，因為經歷了太不一樣的生活，所以打算開始記錄一些生活點滴。<br><br><strong>W Log</strong> 的目的是希望透過記錄自己在新加坡的生活點滴，同時也幫助未來想經歷相同事情的同學。<br><br>這不是一個非常專業的紀錄，內容基於個人經驗與觀察。若有錯誤或想提供建議，歡迎聯絡我。"
       ],
       typeSpeed: 40,      
       startDelay: 500,    
-      showCursor: false,
+      showCursor: true,   // 建議開啟游標，打字效果更真實
+      cursorChar: '|',    // 設定游標符號
       contentType: 'html',
       onComplete: function(self) {
-        // 動畫完成後不顯示游標
+        // 動畫完成後若不想顯示游標，可以將游標隱藏
+        document.querySelector('.typed-cursor').style.display = 'none';
       }
     });
   });

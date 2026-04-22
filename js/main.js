@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   // ==========================================
-  // 1. 深淺色「拉下序幕」切換邏輯
+  // 1. 深淺色「淡出淡入」切換邏輯
   // ==========================================
   const themeToggleBtn = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
@@ -28,30 +28,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // 1. 設定布幕顏色 (根據目標主題決定)
       curtain.style.backgroundColor = targetTheme === 'dark' ? '#111111' : '#ffffff';
       
-      // 2. 拉下布幕
-      curtain.classList.add('drop');
+      // 2. 淡出並縮小布幕
+      curtain.classList.add('fade');
 
-      // 3. 等布幕蓋住畫面後 (600ms)，切換主題並換圖示
+      // 3. 等布幕完全蓋住畫面後 (250ms)，切換主題並換圖示
       setTimeout(() => {
+        // 先更新資料屬性 - 觸發 MutationObserver 監聽器（給首頁的地球使用）
         htmlElement.setAttribute('data-theme', targetTheme);
         localStorage.setItem('theme', targetTheme);
         updateThemeIcon(targetTheme);
         
-        // 4. 收起布幕
-        curtain.style.top = '100vh'; // 讓它繼續往下掉出畫面 (比較酷)
-        
-        setTimeout(() => {
-          // 重置布幕位置回上方，為下次做準備
-          curtain.classList.remove('drop');
-          curtain.style.transition = 'none'; // 瞬間移回上方不顯示動畫
-          curtain.style.top = '-100vh';
-          
-          setTimeout(() => {
-            curtain.style.transition = ''; // 恢復動畫屬性
-            isAnimating = false;
-          }, 50);
-        }, 600);
-      }, 600); // 對應 CSS 的 0.6s
+        // 4. 移除布幕並重置
+        curtain.classList.remove('fade');
+        isAnimating = false;
+      }, 250);
     });
   }
 
@@ -107,4 +97,80 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ==========================================
+  // 4. 文章目錄 TOC 生成
+  // ==========================================
+  const tocNav = document.querySelector('.toc-nav');
+  const postContent = document.querySelector('.post-content');
+
+  if (tocNav && postContent) {
+    // 掃描 post-content 中的標題
+    const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    
+    if (headings.length > 0) {
+      const toc = document.createElement('ul');
+      let currentLevel = 0;
+      let currentUl = toc;
+      const stack = [toc]; // 用來追蹤嵌套的 ul
+
+      headings.forEach((heading, index) => {
+        // 給標題加 ID（如果沒有）
+        if (!heading.id) {
+          heading.id = `heading-${index}`;
+        }
+
+        const level = parseInt(heading.tagName[1]); // h1 = 1, h2 = 2 ...
+        
+        // 處理嵌套層級
+        if (level > currentLevel) {
+          for (let i = currentLevel; i < level; i++) {
+            const newUl = document.createElement('ul');
+            if (currentUl.lastElementChild) {
+              currentUl.lastElementChild.appendChild(newUl);
+            } else {
+              const li = document.createElement('li');
+              li.appendChild(newUl);
+              currentUl.appendChild(li);
+            }
+            stack.push(newUl);
+            currentUl = newUl;
+          }
+          currentLevel = level;
+        } else if (level < currentLevel) {
+          for (let i = level; i < currentLevel; i++) {
+            stack.pop();
+            currentUl = stack[stack.length - 1];
+          }
+          currentLevel = level;
+        }
+
+        // 建立 TOC 項目
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = `#${heading.id}`;
+        a.textContent = heading.textContent;
+        
+        li.appendChild(a);
+        currentUl.appendChild(li);
+      });
+
+      tocNav.appendChild(toc);
+
+      // 平滑滾動
+      tocNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    } else {
+      // 如果沒有標題，隱藏 TOC 區塊
+      tocNav.closest('.sidebar-widget').style.display = 'none';
+    }
+  }
 });

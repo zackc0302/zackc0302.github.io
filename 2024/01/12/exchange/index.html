@@ -41,6 +41,36 @@
       
       <div class="sidebar-category">
         <div class="cat-toggle">
+          <span class="cat-link">Traveling</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
+          
+            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
+          
+            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
+          
+            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
+          
+            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
+          
+            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
+          
+            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
+          
+            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
+          
+            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
+          
+        </ul>
+      </div>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
           <span class="cat-link">NUS Exchange</span>
           <button class="toggle-icon-btn" aria-label="Toggle category">
             <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -49,36 +79,6 @@
         <ul class="cat-posts">
           
             <li><a href="/2024/01/12/exchange/">國大交換心得(食住行)</a></li>
-          
-        </ul>
-      </div>
-      
-      <div class="sidebar-category">
-        <div class="cat-toggle">
-          <span class="cat-link">Traveling</span>
-          <button class="toggle-icon-btn" aria-label="Toggle category">
-            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-        </div>
-        <ul class="cat-posts">
-          
-            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
-          
-            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
-          
-            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
-          
-            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
-          
-            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
-          
-            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
-          
-            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
-          
-            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
-          
-            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
           
         </ul>
       </div>
@@ -178,6 +178,35 @@ UTR旁邊有一間24hr的星巴克，外面有自習區(有插座、吊扇)，�
 
   </div>
 </article>
+
+<!-- 新增：右下角懸浮目錄小工具 (若該篇文章有目錄才會顯示) -->
+
+  <div class="floating-toc">
+    <!-- 目錄面板 -->
+    <div class="toc-panel" id="toc-panel">
+      <div class="toc-panel-header">文章目錄</div>
+      <div class="toc-panel-content">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%BF%E8%88%8D%E5%85%A7%E8%A7%80"><span class="toc-text">宿舍內觀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%B4%BB%E7%94%A8%E5%93%81%E5%BB%BA%E8%AD%B0"><span class="toc-text">生活用品建議</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A"><span class="toc-text">交通</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%94%B8%E6%9B%B8%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-text">唸書的地方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%85%E9%81%8A"><span class="toc-text">旅遊</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%83%E9%A3%AF"><span class="toc-text">吃飯</span></a></li></ol>
+      </div>
+    </div>
+    <!-- 觸發按鈕 -->
+    <button class="toc-toggle-btn" id="toc-toggle-btn" title="切換目錄">
+      目錄清單
+    </button>
+  </div>
+
+  <!-- 控制目錄展開/收起的腳本 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tocBtn = document.getElementById('toc-toggle-btn');
+      const tocPanel = document.getElementById('toc-panel');
+      
+      tocBtn.addEventListener('click', function() {
+        tocPanel.classList.toggle('active');
+      });
+    });
+  </script>
+
   </main>
 
   <footer>
