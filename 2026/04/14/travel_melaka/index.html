@@ -290,14 +290,32 @@
     </button>
   </div>
 
-  <!-- 控制目錄展開/收起的腳本 -->
+  <!-- 控制目錄展開/收起的腳本-->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const tocBtn = document.getElementById('toc-toggle-btn');
       const tocPanel = document.getElementById('toc-panel');
       
-      tocBtn.addEventListener('click', function() {
+      if (!tocBtn || !tocPanel) return; 
+
+      tocBtn.addEventListener('click', function(event) {
         tocPanel.classList.toggle('active');
+        event.stopPropagation(); 
+      });
+
+      document.addEventListener('click', function(event) {
+        if (tocPanel.classList.contains('active')) {
+          if (!tocPanel.contains(event.target) && !tocBtn.contains(event.target)) {
+            tocPanel.classList.remove('active'); // 關閉面板
+          }
+        }
+      });
+
+      const tocLinks = tocPanel.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          tocPanel.classList.remove('active');
+        });
       });
     });
   </script>

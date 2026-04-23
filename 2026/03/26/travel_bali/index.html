@@ -108,7 +108,7 @@
   <!-- 主要內容區 -->
   <main class="container">
     <article class="post-container">
-  <div class="post-banner" style="background-image: url('/images/');">
+  <div class="post-banner" style="background-image: url('/images/bali/20260328_131301.jpg');">
     <div class="banner-overlay"></div>
     <div class="banner-content">
       <h1 class="post-title">峇里島</h1>
@@ -126,11 +126,55 @@
   </div>
 
   <div class="post-content">
-    
+    <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><h1 id="花費"><a href="#花費" class="headerlink" title="花費"></a>花費</h1><h1 id="行程"><a href="#行程" class="headerlink" title="行程"></a>行程</h1><h1 id="飲食"><a href="#飲食" class="headerlink" title="飲食"></a>飲食</h1>
   </div>
 </article>
 
 <!-- 新增：右下角懸浮目錄小工具 (若該篇文章有目錄才會顯示) -->
+
+  <div class="floating-toc">
+    <!-- 目錄面板 -->
+    <div class="toc-panel" id="toc-panel">
+      <div class="toc-panel-header">文章目錄</div>
+      <div class="toc-panel-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%8A%B1%E8%B2%BB"><span class="toc-text">花費</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E7%A8%8B"><span class="toc-text">行程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A3%B2%E9%A3%9F"><span class="toc-text">飲食</span></a></li></ol>
+      </div>
+    </div>
+    <!-- 觸發按鈕 -->
+    <button class="toc-toggle-btn" id="toc-toggle-btn" title="切換目錄">
+      目錄清單
+    </button>
+  </div>
+
+  <!-- 控制目錄展開/收起的腳本-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tocBtn = document.getElementById('toc-toggle-btn');
+      const tocPanel = document.getElementById('toc-panel');
+      
+      if (!tocBtn || !tocPanel) return; 
+
+      tocBtn.addEventListener('click', function(event) {
+        tocPanel.classList.toggle('active');
+        event.stopPropagation(); 
+      });
+
+      document.addEventListener('click', function(event) {
+        if (tocPanel.classList.contains('active')) {
+          if (!tocPanel.contains(event.target) && !tocBtn.contains(event.target)) {
+            tocPanel.classList.remove('active'); // 關閉面板
+          }
+        }
+      });
+
+      const tocLinks = tocPanel.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          tocPanel.classList.remove('active');
+        });
+      });
+    });
+  </script>
 
   </main>
 
