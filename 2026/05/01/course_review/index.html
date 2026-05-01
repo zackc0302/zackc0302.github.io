@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W Log</title>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+  <!-- 新增：深淺色切換的「布幕」 -->
+  <div id="theme-curtain" class="theme-curtain"></div>
+
+  <!-- 頂部導覽列 (層級拉到最高) -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <!-- 三條線按鈕保留在這裡，點擊可開關側邊欄 -->
+      <button id="sidebar-toggle" class="icon-btn" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="/" class="logo">W Log</a>
+    </div>
+    
+    <div class="navbar-right">
+      <button id="lang-toggle" class="text-btn">中 / EN</button>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle theme">
+        <svg id="theme-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 遮罩層 -->
+  <div id="sidebar-overlay" class="overlay"></div>
+
+  <!-- 側邊欄 (移除了叉叉，並新增聯絡方式) -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-content">
+      <h4 class="sidebar-title">目錄導覽</h4>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
+          <span class="cat-link">Traveling</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2026/03/26/travel_bali/">峇里島</a></li>
+          
+            <li><a href="/2026/05/06/travel_ipoh/">怡保</a></li>
+          
+            <li><a href="/2026/02/20/travel_mel&syd/">墨爾本&amp;雪梨</a></li>
+          
+            <li><a href="/2026/05/02/travel_peneng/">檳城</a></li>
+          
+            <li><a href="/2026/03/21/travel_bangkok/">曼谷</a></li>
+          
+            <li><a href="/2026/01/28/travel_jb/">新山</a></li>
+          
+            <li><a href="/2026/03/31/travel_hcmc/">胡志明市</a></li>
+          
+            <li><a href="/2026/04/14/travel_melaka/">馬六甲</a></li>
+          
+            <li><a href="/2026/05/10/travel_singapore/">新加坡</a></li>
+          
+        </ul>
+      </div>
+      
+      <div class="sidebar-category">
+        <div class="cat-toggle">
+          <span class="cat-link">NUS Exchange</span>
+          <button class="toggle-icon-btn" aria-label="Toggle category">
+            <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+        <ul class="cat-posts">
+          
+            <li><a href="/2026/01/12/exchange/">國大交換心得(食住行)</a></li>
+          
+            <li><a href="/2026/05/01/course_review/">國大交換修課心得</a></li>
+          
+        </ul>
+      </div>
+      
+    </div>
+    
+    <!-- 新增：聯絡方式區塊 -->
+    <div class="sidebar-footer">
+      <h4 class="sidebar-title center-text">CONTACT</h4>
+      <div class="contact-links">
+        <!-- Email Logo -->
+        <a href="mailto:zackc0302@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+          </svg>
+        </a>
+        <!-- GitHub Logo -->
+        <a href="https://github.com/fjdid" target="_blank" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 主要內容區 -->
+  <main class="container">
+    <article class="post-container">
+  <div class="post-banner" style="background-image: url('/images/campus/logo.jpg');">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <h1 class="post-title">國大交換修課心得</h1>
+      <div class="post-meta">
+        <span>📅 2026-05-01</span>
+        
+          <span>📂 
+            
+              <a href="/categories/NUS-Exchange/">NUS Exchange</a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="post-content">
+    <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>交換的這個學期我僅選修3門課(最低需求)，但我必須說，當初覺得不能怠惰，不能只挑簡單的課上，但後來真的覺得這學期的重點不是在修課，而是在學習書本以外的知識，在玩得過程中學習，學習文化、學習一個人如何在外生活、遇到問題如何解決等等，所以建議不要選太難、台花時間的課，除非那門課真的是你所熱愛的。</p>
+<p><a target="_blank" rel="noopener" href="https://digitalgems.nus.edu.sg/browse/collection/31?limit=10">NUS Library 考古題</a></p>
+<hr>
+<h2 id="CS2100-Computer-Organization"><a href="#CS2100-Computer-Organization" class="headerlink" title="CS2100 Computer Organization"></a>CS2100 Computer Organization</h2><blockquote>
+<p><strong>Insrtuctor: Tan Tuck Choy &amp; Prabhu NATARAJAN</strong></p>
+</blockquote>
+<h3 id="Grading"><a href="#Grading" class="headerlink" title="Grading"></a>Grading</h3><table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="right">Weightage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Tutorial Attendance</td>
+<td align="right">5%</td>
+</tr>
+<tr>
+<td align="left">Weekly Quizzes</td>
+<td align="right">3%</td>
+</tr>
+<tr>
+<td align="left">Labs</td>
+<td align="right">10%</td>
+</tr>
+<tr>
+<td align="left">Assignments</td>
+<td align="right">12%</td>
+</tr>
+<tr>
+<td align="left">Mid-term Test</td>
+<td align="right">20%</td>
+</tr>
+<tr>
+<td align="left">Final Exam</td>
+<td align="right">50%</td>
+</tr>
+</tbody></table>
+<h3 id="My-review"><a href="#My-review" class="headerlink" title="My review"></a>My review</h3><p>這門課loading最重，難度我覺得正常，但是東西真的很多，上課不點名，但是Lab、Tutorial會。Lab不難，而且助教人超好，有Labb問題問他，他都很有耐性的說；上Tutorial前一定要搞懂那週的進度，要不然會去那邊放空一小時，內容會比Weekly Quiz難，但如果都搞懂的話，段考應該都會寫(吧?)。</p>
+<p>期中考和期末考都是選擇題+填空題，量真的不是普通的多，寫不大完。比較想分享的是考試的地方在運動館旁邊的多功能教室，那一間教室應該是可以塞到1000人，期中只開了半間，期末的時候另一半是別的課程考場。這門課的修課人數大概是我大學修過做多人的課，學期末看是391，學期初忘記看了。</p>
+<p>整體來說蠻推薦的，指示他要教的東西很多，但都不難，考試寫不完而已(2hr不會延長)。下面附上課程網站，看考古題時Term Tests是期中考，Exams是期末考。</p>
+<p><a target="_blank" rel="noopener" href="https://www.comp.nus.edu.sg/~cs2100/">課程網站</a></p>
+<hr>
+<h2 id="IS4302-Blockchain-and-Distributed-Ledger-Technologies"><a href="#IS4302-Blockchain-and-Distributed-Ledger-Technologies" class="headerlink" title="IS4302 Blockchain and Distributed Ledger Technologies"></a>IS4302 Blockchain and Distributed Ledger Technologies</h2><blockquote>
+<p><strong>Insrtuctor: Nicholas Mac Gregor Garcia</strong></p>
+</blockquote>
+<h3 id="Grading-1"><a href="#Grading-1" class="headerlink" title="Grading"></a>Grading</h3><table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="right">Weightage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Class Participation</td>
+<td align="right">5%</td>
+</tr>
+<tr>
+<td align="left">Lab Assignments</td>
+<td align="right">18% &#x3D; 3 x 6%</td>
+</tr>
+<tr>
+<td align="left">Midterm Exam</td>
+<td align="right">25%</td>
+</tr>
+<tr>
+<td align="left">Assignments</td>
+<td align="right">12% &#x3D; 2 x 12%</td>
+</tr>
+<tr>
+<td align="left">Group Project &amp; Presentation</td>
+<td align="right">40%</td>
+</tr>
+</tbody></table>
+<h3 id="My-review-1"><a href="#My-review-1" class="headerlink" title="My review"></a>My review</h3><p>這門課我覺得老師教得非常好，循序漸進，上課也都蠻好懂得，老師第一堂課是說他之前本來就是做這個的，聽到他這句話我整個為之一亮，畢竟台灣的教育界沒有辦法請得起業師，可見NUS花了大把鈔票請到他(?</p>
+<p>回到重點，這門課我覺得loading一般。先說lab，只有三次，基本上有點OOP觀念都可以完成，寫solidity，會要你先用網頁的Remix IDE完成，assignments的部分就是問答題，可以自己或一兩個人一起完成，一次在期中後，另一次在期末專案demo後。而class participation是老師最在意的，上課的時候他會問大家有沒有問題，然後這時候就會聽到新加坡學生開始問問題了(題外話: 說的真的超級快)，基本上有問問題，老師就會問你的名字，那個5%就是這樣來的，不是點名。</p>
+<p>期中考都是選擇題，難度我覺得還好，但是要確定對PPT中的觀念夠熟，因為考題不會很直接地問你問題，通常需要多轉一次彎；除此之外，同學上課問的問題會是考題，而那些題目會是大家分數主要的差距，所以感覺自己也要在別人提問的時候做筆記，並記錄老師的回答。</p>
+<p>期末專案大概分10組，一組七分鐘。Project主題是做出一個dapp，不一定要能真實上線，但至少local端要能正確執行。基本上我沒有看過這麼厲害的demo現場，每一組都像是做出了一個<strong>產品</strong>出來，PPT也是超級精緻，在下面聽很像在參加產品發表會，我猜主要也是因為這門課的學生有超多種，大學、碩士、博士、在職生，有些人甚至是工作過的，而這種景象我認為是台灣少見的，Project組員大概在老師公布資訊時就可以開始找了，因為是Project課，所以找組員當然也是一種實力了~，報告完老師會請台下的學生發問，學生沒發問才是老師問。</p>
+<hr>
+<h2 id="BT1101-Introduction-to-Business-Analytics"><a href="#BT1101-Introduction-to-Business-Analytics" class="headerlink" title="BT1101 Introduction to Business Analytics"></a>BT1101 Introduction to Business Analytics</h2><blockquote>
+<p><strong>Insrtuctor: Tan Swee Lin, Sharon &amp; Sow Jin Sze, Samantha</strong></p>
+</blockquote>
+<h3 id="Grading-2"><a href="#Grading-2" class="headerlink" title="Grading"></a>Grading</h3><table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="right">Weightage</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Online Quizzes &amp; Data camp Assignments</td>
+<td align="right">10%</td>
+</tr>
+<tr>
+<td align="left">Tutorials (Best 5 of 9 to be counted)</td>
+<td align="right">15%</td>
+</tr>
+<tr>
+<td align="left">Lab sessions</td>
+<td align="right">5%</td>
+</tr>
+<tr>
+<td align="left">Online Mid Term Test</td>
+<td align="right">20%</td>
+</tr>
+<tr>
+<td align="left">Online Final Exam</td>
+<td align="right">50%</td>
+</tr>
+</tbody></table>
+<h3 id="My-review-2"><a href="#My-review-2" class="headerlink" title="My review"></a>My review</h3><p>這門課我原本以為是最簡單的，結果最後感覺是很難。首先第一個是他的<strong>Online Mid Term Test</strong>，我一開始還以為是像疫情那時候在家用自己的電腦做(可以查網路的那種)，結果答對一半而已。這門課的test需要在自己的電腦下載<strong>Examplify</strong>，這個軟體在開始考試之後會讓你的網路斷線、複製貼上功能失效等等，所有人是帶著電腦到考場去考試，期中平均大概是18.66&#x2F;30。期末我覺得超難，30題選擇+9題R code，我是沒寫完。</p>
+<p>內容量我覺得是<strong>交大管院統計學(一)+統計學(二)+R code能力</strong>，簡單來說他應該叫商業分析就好，很不概論…</p>
+<p>這門課有兩個老師，前半學期的老師會點名，後半學期的老師不會；Lab &amp; Tutorialㄉ會點名。</p>
+
+  </div>
+</article>
+
+<!-- 新增：右下角懸浮目錄小工具 (若該篇文章有目錄才會顯示) -->
+
+  <div class="floating-toc">
+    <!-- 目錄面板 -->
+    <div class="toc-panel" id="toc-panel">
+      <div class="toc-panel-header">文章目錄</div>
+      <div class="toc-panel-content">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CS2100-Computer-Organization"><span class="toc-text">CS2100 Computer Organization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grading"><span class="toc-text">Grading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#My-review"><span class="toc-text">My review</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IS4302-Blockchain-and-Distributed-Ledger-Technologies"><span class="toc-text">IS4302 Blockchain and Distributed Ledger Technologies</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grading-1"><span class="toc-text">Grading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#My-review-1"><span class="toc-text">My review</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BT1101-Introduction-to-Business-Analytics"><span class="toc-text">BT1101 Introduction to Business Analytics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Grading-2"><span class="toc-text">Grading</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#My-review-2"><span class="toc-text">My review</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </div>
+    <!-- 觸發按鈕 -->
+    <button class="toc-toggle-btn" id="toc-toggle-btn" title="切換目錄">
+      目錄清單
+    </button>
+  </div>
+
+  <!-- 控制目錄展開/收起的腳本-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const tocBtn = document.getElementById('toc-toggle-btn');
+      const tocPanel = document.getElementById('toc-panel');
+      
+      if (!tocBtn || !tocPanel) return; 
+
+      tocBtn.addEventListener('click', function(event) {
+        tocPanel.classList.toggle('active');
+        event.stopPropagation(); 
+      });
+
+      document.addEventListener('click', function(event) {
+        if (tocPanel.classList.contains('active')) {
+          if (!tocPanel.contains(event.target) && !tocBtn.contains(event.target)) {
+            tocPanel.classList.remove('active'); // 關閉面板
+          }
+        }
+      });
+
+      const tocLinks = tocPanel.querySelectorAll('a');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          tocPanel.classList.remove('active');
+        });
+      });
+    });
+  </script>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Wesber - All rights reserved.</p>
+  </footer>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
